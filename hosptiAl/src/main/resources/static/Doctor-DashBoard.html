@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="/css/HF.css">
+    <!-- <link rel="stylesheet" href="/css/Home.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+         body {
+            background-color: #4a7a5e;
+        }
+        .myn{
+            background-color: #4a7a5e;
+        }
+        .card-header{
+            color: #722929;
+        }
+        .txt{
+            color: #722929;
+
+        }
+            /*
+        .container {
+            margin-top: 50px;
+        }
+        .card-header {
+            font-weight: bold;
+            background-color: #0d6efd;
+            color: white;
+        }
+        .appointments-table th {
+            background-color: #0d6efd;
+            color: white;
+        }
+        .appointments-table td {
+            vertical-align: middle;
+        } */
+         /* Container for the footer */
+        
+.footer {
+    background-color: #24262b;
+    padding: 70px 0;
+}
+
+/* Flexbox container for the columns */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Individual footer columns */
+.footer-col {
+    width: 25%;
+    padding: 0 15px;
+}
+.card-body {
+    color:#ffffff
+}
+
+/* Headings within the footer */
+.footer-col h4 {
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+
+/* Style for the links */
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 8px;
+}
+
+/* Social links */
+.social-links a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+
+.social-links a:hover {
+    color: #24262b;
+    background-color: #ffffff;
+}
+
+/* The horizontal layout will look like this: */
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark custom-header">
+        <div class="container">
+            <a class="navbar-brand" href="/">Healing Haven Hospital</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about-us">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Register.html"> Register Patient</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Doctor-Register.html"> Doctor</a>
+                    </li>
+                    
+                    <button id="logoutButton" class="btn" style="color: white;">Logout</button>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container ">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class=" mb-0" style="color:white">Doctor Dashboard</h2>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4 myn">
+                <div class="card shadow-sm myn">
+                    <div class="card-header">
+                        Doctor Details
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title" id="doctorName" style="color: #722929;"></h4>
+                        <p class="card-text mb-1"><strong class="txt">Specialization:</strong> <span id="specialization"></span></p>
+                        <p class="card-text mb-1"><strong class="txt">Contact:</strong> <span id="contactNumber"></span></p>
+                        <p class="card-text mb-0"><strong class="txt">Availability:</strong> <span id="availabilitySchedule"></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 mb-4 myn">
+                <div class="card shadow-sm myn">
+                    <div class="card-header">
+                        Upcoming Appointments
+                    </div>
+                    <div class="card-body" >
+                        <div class="table-responsive" >
+                            <table class="table table-striped appointments-table">
+                                <thead>
+                                    <tr>
+                                        <th>Appointment ID</th>
+                                        <th>Date</th>
+                                        <th>Time Slot</th>
+                                        <th>Status</th>
+                                        <th>Patient Id</th>
+                                        <th>Patient Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="appointmentsTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>
+                            <p>Email:hhh@gmail.com</p>
+                        </li>
+                        <li>
+                            <p>+91-9547856321</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/loginPatient">Patient</a></li>
+                        <li><a href="/bookAppointment">Book Appointments</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Departments</h4>
+                    <ul>
+                        <li>
+                            <p>Gerenal</p>
+                        </li>
+                        <li>
+                            <p>ICU</p>
+                        </li>
+                        <li>
+                            <p>Emergency</p>
+                        </li>
+                        <li>
+                            <p>Cardiology</p>
+                        </li>
+                        <li>
+                            <p>Neurology</p>
+                        </li>
+                        <li>
+                            <p>Gynecology</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>follow us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script >
+        $(document).ready(function() {
+            const userRole = sessionStorage.getItem('userRole');
+            if (userRole !== 'doctor' ) {
+                alert("Access denied. You must be an  Doctor and logged in to view this page.");
+                window.location.href = 'login.html';
+                return;
+            }
+    const userName = sessionStorage.getItem('username');
+    const token = sessionStorage.getItem('jwtToken');
+
+    // Logout functionality: Clears session data and redirects to login
+    $('#logoutButton').on('click', function() {
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('jwtToken');
+        sessionStorage.removeItem('userRole'); 
+        alert("You have been logged out successfully.");
+        window.location.href = 'Login.html'; 
+    });
+
+    if (!userName ) {
+        console.error("Doctor username or token not found in sessionStorage. Redirecting to login.");
+        alert("Please log in to view the dashboard.");
+        window.location.href = 'Login.html';
+        return;
+    }
+
+    // 1. Fetch Doctor Details
+    $.ajax({
+        url: 'http://localhost:8080/getname/' + userName,
+        type: 'GET',
+        dataType: 'json',
+        // headers: {
+        //     'Authorization': 'Bearer ' + token
+        // },
+        success: function(doctorData) {
+            $('#doctorName').text(doctorData.name || 'N/A');
+            $('#specialization').text(doctorData.specialization || 'N/A');
+            $('#contactNumber').text(doctorData.contactNumber || 'N/A');
+            $('#availabilitySchedule').text(doctorData.availabilitySchedule || 'N/A');
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching doctor details:", error);
+            $('#doctorName').text(userName);
+            $('#specialization').text('Not Available');
+            $('#contactNumber').text('Not Available');
+            $('#availabilitySchedule').text('Not Available');
+        }
+    });
+
+    // 2. Fetch Appointments and Patient Details
+    $.ajax({
+       // url: 'http://localhost:8080/appointment/appt/all',
+	   url: 'http://localhost:8080/appointment/appt/details/'+userName,
+        type: 'GET',
+        dataType: 'json',
+        // headers: {
+        //     'Authorization': 'Bearer ' + token
+        // },
+        success: function(allAppointments) {
+            const appointmentsTableBody = $('#appointmentsTableBody');
+            appointmentsTableBody.empty();
+
+            if (!allAppointments || allAppointments.length === 0) {
+                appointmentsTableBody.append('<tr><td colspan="6" class="text-center text-muted">No appointments scheduled.</td></tr>');
+                return;
+            }
+
+            // Filter appointments for the specific doctor
+            const doctorAppointments = allAppointments.filter(function(appointment) {
+                return appointment[7] === userName;
+            });
+            
+            if (doctorAppointments.length === 0) {
+                appointmentsTableBody.append('<tr><td colspan="6" class="text-center text-muted">No appointments scheduled for you.</td></tr>');
+                return;
+            }
+
+            doctorAppointments.forEach(function(appointment) {
+                const appointmentId = appointment[0];
+                const appointmentDate = appointment[1];
+                const timeSlot = appointment[2];
+                const status = appointment[3];
+                const patientId = appointment[4];
+                const patientName = appointment[5];
+
+                let statusBadge;
+                if (status && status.toUpperCase() === "CONFIRMED") {
+                    statusBadge = '<span class="badge bg-success">CONFIRMED</span>';
+                } else {
+                    statusBadge = '<span class="badge bg-danger">CANCELLED</span>';
+                }
+
+                const tableRow = '<tr>' +
+                                '<td>' + appointmentId + '</td>' +
+                                '<td>' + appointmentDate + '</td>' +
+                                '<td>' + timeSlot + '</td>' +
+                                '<td>' + statusBadge + '</td>' +
+                                '<td>' + patientId + '</td>' +
+                                '<td>' + patientName + '</td>' +
+                                '</tr>';
+
+                appointmentsTableBody.append(tableRow);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching appointments:", error);
+            alert("Failed to load appointment data.");
+            $('#appointmentsTableBody').append('<tr><td colspan="6" class="text-center text-danger">Error loading appointments.</td></tr>');
+        }
+    });
+});
+    </script>
+</body>
+</html>

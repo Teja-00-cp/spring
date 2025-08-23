@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="/css/HF.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, #343a40 60%, #495057 100%);
+            padding-top: 30px;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.08);
+        }
+        .sidebar h4 {
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        .sidebar a, .sidebar .btn {
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #f8f9fa;
+            display: block;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            transition: background 0.2s;
+        }
+        .sidebar a:hover, .sidebar .btn:hover {
+            background-color: #212529;
+            color: #ffc107;
+        }
+        .content {
+            margin-left: 270px;
+            padding: 30px 40px;
+        }
+        .welcome-card {
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            padding: 30px 35px;
+        }
+        .patient-details-card, .bills-card, .card.mt-5 {
+            margin-top: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        .patient-details-card {
+            display: none;
+        }
+        .bills-card {
+            display: none;
+        }
+        .card-header {
+            background: linear-gradient(90deg, #007bff 60%, #17a2b8 100%);
+            color: #fff;
+            font-weight: 500;
+            border-radius: 10px 10px 0 0;
+        }
+        .list-group-item {
+            background: #f8f9fa;
+            border: none;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+        .btn-primary, .btn-secondary {
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .btn-danger {
+            border-radius: 6px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #f1f3f6;
+            font-weight: 600;
+        }
+        .footer {
+            background: #343a40;
+            color: #fff;
+            padding: 40px 0 20px 0;
+            margin-top: 40px;
+        }
+        .footer-col h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        .footer-col ul li a, .footer-col ul li p {
+            color: #f8f9fa;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .footer-col ul li a:hover {
+            color: #ffc107;
+        }
+        .social-links a {
+            color: #fff;
+            font-size: 20px;
+            margin-right: 12px;
+            transition: color 0.2s;
+        }
+        .social-links a:hover {
+            color: #ffc107;
+        }
+        @media (max-width: 900px) {
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .content { margin-left: 0; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark custom-header" style="background: linear-gradient(90deg, #007bff 60%, #17a2b8 100%);">
+        <div class="container">
+            <!-- <a class="navbar-brand" href="/">Healing Haven Hospital</a> -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="Home.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about-us">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Register.html">Register Patient</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Doctor-Register.html">Doctor</a></li>
+                    <button id="logoutButton" class="btn btn-outline-light ml-3">Logout</button>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="sidebar">
+        <h4 class="text-white text-center mb-4"><i class="fas fa-user-injured"></i> HMS Patient</h4>
+        <a href="patient-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="BookAppointment.html"><i class="fas fa-calendar-plus"></i> Book Appointment</a>
+        <div class="btn btn-secondary mb-2" id="showBill"><i class="fas fa-file-invoice-dollar"></i> Show My Bills</div>
+        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+    <div class="content">
+        <div class="jumbotron welcome-card">
+            <h1 class="display-4" id="welcomeMessage">Welcome </h1>
+            <p class="lead">Your personalized health dashboard.</p>
+            <hr class="my-4">
+            <p>Use the navigation on the left to access different features.</p>
+            <button id="showDetailsBtn" class="btn btn-primary"><i class="fas fa-user"></i> Show My Details</button>
+            <a class="btn btn-primary btn-lg" href="BookAppointment.html" role="button"><i class="fas fa-calendar-plus"></i> Book a New Appointment</a>
+        </div>
+        <div class="card patient-details-card" id="patientDetailsCard">
+            <div class="card-header">
+                <button id="apbtn" class="btn btn-info"><i class="fas fa-id-card"></i> Your Personal Details</button>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled" id="patientDetailsList"></ul>
+            </div>
+        </div>
+        <div class="card mt-5">
+            <div class="card-header">
+                <i class="fas fa-calendar-alt"></i> Your Upcoming Appointments
+            </div>
+            <ul id="appointmentList" class="list-group list-group-flush">
+                <li class="list-group-item">No upcoming appointments.</li>
+            </ul>
+        </div>
+        <div class="card bills-card" id="billsCard">
+            <div class="card-header">
+                <i class="fas fa-file-invoice-dollar"></i> Your Bills
+            </div>
+            <div class="card-body" id="bills-container"></div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col col-md-3">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><p>Email: hhh@gmail.com</p></li>
+                        <li><p>+91-9547856321</p></li>
+                    </ul>
+                </div>
+                <div class="footer-col col-md-3">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/loginPatient">Patient</a></li>
+                        <li><a href="/bookAppointment">Book Appointments</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col col-md-3">
+                    <h4>Departments</h4>
+                    <ul>
+                        <li><p>General</p></li>
+                        <li><p>ICU</p></li>
+                        <li><p>Emergency</p></li>
+                        <li><p>Cardiology</p></li>
+                        <li><p>Neurology</p></li>
+                        <li><p>Gynecology</p></li>
+                    </ul>
+                </div>
+                <div class="footer-col col-md-3">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const token = sessionStorage.getItem('jwtToken');
+            const role = sessionStorage.getItem('userRole');
+            const username = sessionStorage.getItem('username');
+            if (role !== 'patient' ) {
+                alert("Access denied. You must be an Patient and logged in to view this page.");
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Initial welcome message
+            $('#welcomeMessage').text(`Welcome, ${username}!`);
+            
+            let detailsLoaded = false;
+
+           // if (!token || role !== 'patient') {
+            //    window.location.href = 'Home.html';
+               // return;
+           // }
+
+            // Function to handle the cancel appointment AJAX call
+            function cancelAppointment(appointmentId) {
+                $.ajax({
+                    url: `http://localhost:8080/appointment/update/${appointmentId}`,
+                    type: 'PUT',
+                    // headers: {
+                    //     'Authorization': 'Bearer ' + token
+                    // },
+                    success: function(response) {
+                        alert('Appointment cancelled successfully.');
+                        fetchPatientDetails();
+                    },
+                    error: function(error) {
+                        console.error('Failed to cancel appointment:', error);
+                        alert('Error cancelling appointment.');
+                    }
+                });
+            }
+
+            // Function to display appointments
+            function displayAppointments(appointments) {
+                const appointmentList = $('#appointmentList');
+                appointmentList.empty();
+
+                if (appointments && appointments.length > 0) {
+                    appointments.forEach(app => {
+                        const appointmentItem = $(`
+                            <li class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1"><strong>Doctor:</strong> ${app[7]} (${app[8]})</h5>
+                                    <small class="text-muted"><strong>Status:</strong> ${app[3]}</small>
+                                </div>
+                                <p class="mb-1"><strong>Patient:</strong> ${app[5]}</p>
+                                <p class="mb-1"><strong>Date:</strong> ${app[1]} at ${app[2]}</p>
+                                ${app[3] === 'CONFIRMED' ? `<button class="btn btn-danger btn-sm mt-2 cancel-btn" data-appointment-id="${app[0]}">Cancel Appointment</button>` : ''}
+                            </li>
+                        `);
+                        appointmentList.append(appointmentItem);
+                    });
+                    $('.cancel-btn').on('click', function() {
+                        const appointmentId = $(this).data('appointment-id');
+                        if (confirm('Are you sure you want to cancel this appointment?')) {
+                            cancelAppointment(appointmentId);
+                        }
+                    });
+                } else {
+                    appointmentList.append('<li class="list-group-item">No upcoming appointments.</li>');
+                }
+            }
+
+            // Function to fetch and display patient details
+            function fetchPatientDetails() {
+                $.ajax({
+                    url: `http://localhost:8080/pat/getname/${username}`,
+                    type: 'GET',
+                    // headers: {
+                    //     'Authorization': 'Bearer ' + token
+                    // },
+                    success: function(patientData) {
+                        $('#welcomeMessage').text(`Welcome, ${patientData.name}!`);
+                        sessionStorage.setItem('patientId', patientData.patientId);
+
+                        const detailsList = $('#patientDetailsList');
+                        detailsList.empty();
+                        detailsList.append(`<li><strong>Name:</strong> ${patientData.name}</li>`);
+                        detailsList.append(`<li><strong>Date of Birth:</strong> ${patientData.dateOfBirth}</li>`);
+                        detailsList.append(`<li><strong>Gender:</strong> ${patientData.gender}</li>`);
+                        detailsList.append(`<li><strong>Contact Number:</strong> ${patientData.contactNumber}</li>`);
+                        detailsList.append(`<li><strong>Address:</strong> ${patientData.address}</li>`);
+                        detailsList.append(`<li><strong>Medical History:</strong> ${patientData.medicalHistory}</li>`);
+                        
+                        $.ajax({
+                            url: `http://localhost:8080/appointment/appt/all`,
+                            type: 'GET',
+                            // headers: {
+                            //     'Authorization': 'Bearer ' + token
+                            // },
+                            success: function(appointmentData) {
+                                if (appointmentData.length > 0) {
+                                    const patientAppointments = appointmentData.filter(app => app[5] === username);
+                                    displayAppointments(patientAppointments);
+                                } else {
+                                    displayAppointments([]);
+                                }
+                            },
+                            error: function(error) {
+                                console.error('Failed to fetch appointment details:', error);
+                                displayAppointments([]);
+                            }
+                        });
+                    },
+                    error: function(error) {
+                        console.error('Failed to fetch patient details:', error);
+                        $('#patientDetailsList').text('Error loading details.');
+                    }
+                });
+                detailsLoaded = true;
+            }
+
+            $('#showDetailsBtn').on('click', function() {
+                const detailsCard = $('#patientDetailsCard');
+                detailsCard.toggle();
+                if (!detailsLoaded) {
+                    fetchPatientDetails();
+                }
+            });
+
+            $('#logoutBtn').on('click', function(e) {
+                e.preventDefault();
+                sessionStorage.removeItem('jwtToken');
+                sessionStorage.removeItem('userRole');
+                sessionStorage.removeItem('username');
+                sessionStorage.removeItem('patientId');
+                window.location.href = 'Login.html';
+            });
+            
+            // This is the new, corrected part. 
+            // The AJAX call for bills is now inside the click handler for the "Show My Bills" button.
+            $('#showBill').on('click', function() {
+                const apiUrl = `http://localhost:8080/api/billing/generate/${sessionStorage.getItem('patientId')}`;
+                const billsCard = $('#billsCard');
+                const billsContainer = $("#bills-container");
+
+                // Show the bills container
+                // billsCard.show();
+                billsCard.toggle();
+                // Make the API call using $.ajax
+                $.ajax({
+                    url: apiUrl,
+                    method: "GET",
+                    dataType: "json",
+                    success: function(billsData) {
+                        if (Array.isArray(billsData) && billsData.length > 0) {
+                            displayBills(billsData);
+                        } else {
+                            billsContainer.html("<p>No bills found for this patient.</p>");
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("AJAX Error: " + textStatus, errorThrown);
+                        billsContainer.html(`<p style="color:red;">You not done any.</p>`);
+                    }
+                });
+            });
+
+            // Function to display the bills in a table
+            function displayBills(bills) {
+                let tableHtml = `
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Bill ID</th>
+                                <th>Bill Date</th>
+                                <th>Patient Name</th>
+                                <th>Total Amount</th>
+                                <th>Payment Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                $.each(bills, function(index, bill) {
+                    const statusColor = bill.paymentStatus === "UNPAID" ? "red" : "green";
+                    tableHtml += `
+                        <tr>
+                            <td>${bill.billId}</td>
+                            <td>${bill.billDate}</td>
+                            <td>${bill.patient.name}</td>
+                            <td>$${bill.totalAmount}</td>
+                            <td style="color: ${statusColor}; font-weight: bold;">${bill.paymentStatus}</td>
+                        </tr>
+                    `;
+                });
+                
+                tableHtml += `
+                        </tbody>
+                    </table>
+                `;
+                $("#bills-container").html(tableHtml);
+            }
+            
+            // Initial call to fetch appointments on page load
+            if (username) {
+                $.ajax({
+                    url: `http://localhost:8080/appointment/appt/all`,
+                    type: 'GET',
+                    // headers: {
+                    //     'Authorization': 'Bearer ' + token
+                    // },
+                    success: function(appointmentData) {
+                        if (appointmentData.length > 0) {
+                            const patientAppointments = appointmentData.filter(app => app[5] === username);
+                            displayAppointments(patientAppointments);
+                        } else {
+                            displayAppointments([]);
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Failed to fetch initial appointments:', error);
+                        displayAppointments([]);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

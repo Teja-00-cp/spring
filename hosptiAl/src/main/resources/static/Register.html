@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Registration</title>
+    <link rel="stylesheet" href="/css/HF.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .custom-header {
+            background: linear-gradient(90deg, #007bff 60%, #17a2b8 100%);
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ffc107 !important;
+        }
+        .container.mt-5 {
+            max-width: 520px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            padding: 40px 30px 30px 30px;
+            margin-top: 50px;
+        }
+        h2.text-center {
+            font-weight: 700;
+            color: #007bff;
+            letter-spacing: 1px;
+        }
+        .form-label, label, legend {
+            font-weight: 500;
+            color: #495057;
+        }
+        .form-control, textarea, input[type="date"] {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            font-size: 16px;
+            padding: 10px;
+        }
+        .form-check-label {
+            font-weight: 400;
+            color: #495057;
+        }
+        .btn-primary {
+            border-radius: 8px;
+            font-weight: 500;
+            background: linear-gradient(90deg, #007bff 60%, #17a2b8 100%);
+            border: none;
+            margin-top: 10px;
+            padding: 10px 0;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #0056b3 60%, #138496 100%);
+            color: #ffc107;
+        }
+        .footer {
+            background: #343a40;
+            color: #fff;
+            padding: 40px 0 20px 0;
+            margin-top: 40px;
+        }
+        .footer-col h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        .footer-col ul li a, .footer-col ul li p {
+            color: #f8f9fa;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .footer-col ul li a:hover {
+            color: #ffc107;
+        }
+        .social-links a {
+            color: #fff;
+            font-size: 20px;
+            margin-right: 12px;
+            transition: color 0.2s;
+        }
+        .social-links a:hover {
+            color: #ffc107;
+        }
+        @media (max-width: 600px) {
+            .container.mt-5 {
+                max-width: 98vw;
+                margin: 20px;
+                padding: 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark custom-header">
+        <div class="container">
+            <a class="navbar-brand" href="/">Healing Haven Hospital</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about-us">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Register.html"> Register Patient</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Doctor-Register.html"> Doctor</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4"><i class="fas fa-user-plus"></i> Register Patient</h2>
+        <form id="patientForm">
+            <div class="form-group">
+                <label for="userName">Username</label>
+                <input type="text" class="form-control" id="userName" placeholder="Enter username" required>
+            </div>
+            <div class="form-group">
+                <label for="passWord">Password</label>
+                <input type="password" class="form-control" id="passWord" placeholder="Enter password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassWord">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassWord" placeholder="Confirm password" required>
+            </div>
+            <div class="form-group">
+                <label for="dateOfBirth">Date of Birth</label>
+                <input type="date" class="form-control" id="dateOfBirth" required>
+            </div>
+            <fieldset class="form-group">
+                <legend class="col-form-label">Gender</legend>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="male" value="MALE" required>
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="female" value="FEMALE">
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="other" value="Prefer not to say">
+                    <label class="form-check-label" for="other">Prefer not to say</label>
+                </div>
+            </fieldset>
+            <div class="form-group">
+                <label for="contactNumber">Contact Number</label>
+                <input type="tel" class="form-control" id="contactNumber" placeholder="Enter contact number" required pattern="[0-9]{10}">
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea class="form-control" id="address" rows="3" placeholder="Enter address" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="medicalHistory">Medical History</label>
+                <textarea class="form-control" id="medicalHistory" rows="3" placeholder="Enter medical history"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100"><i class="fas fa-user-plus"></i> Register</button>
+        </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $('#patientForm').on('submit', function(e) {
+            e.preventDefault();
+
+            if ($('#passWord').val() !== $('#confirmPassWord').val()) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            const patientData = {
+                userName: $('#userName').val(),
+                passWord: $('#passWord').val(),
+                dateOfBirth: $('#dateOfBirth').val(),
+                gender: $('input[name="gender"]:checked').val(),
+                contactNumber: $('#contactNumber').val(),
+                address: $('#address').val(),
+                medicalHistory: $('#medicalHistory').val(),
+                role: "PATIENT"
+            };
+
+            $.ajax({
+                url: 'http://localhost:8080/user/addPatient',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(patientData),
+                success: function(response) {
+                    alert('Patient registered successfully!');
+                    window.location.href = `Login.html`;
+                    $('#patientForm')[0].reset();
+                },
+                error: function(error) {
+                    alert('Error registering patient. Please try again.');
+                    console.error(error);
+                }
+            });
+        });
+    </script>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col col-md-3">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><p>Email: hhh@gmail.com</p></li>
+                        <li><p>+91-9547856321</p></li>
+                    </ul>
+                </div>
+                <div class="footer-col col-md-3">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/loginPatient">Patient</a></li>
+                        <li><a href="/bookAppointment">Book Appointments</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col col-md-3">
+                    <h4>Departments</h4>
+                    <ul>
+                        <li><p>General</p></li>
+                        <li><p>ICU</p></li>
+                        <li><p>Emergency</p></li>
+                        <li><p>Cardiology</p></li>
+                        <li><p>Neurology</p></li>
+                        <li><p>Gynecology</p></li>
+                    </ul>
+                </div>
+                <div class="footer-col col-md-3">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
