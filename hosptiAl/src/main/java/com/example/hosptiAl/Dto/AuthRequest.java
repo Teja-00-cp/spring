@@ -32,6 +32,10 @@ public class AuthRequest {
 		this.password = password;
 	}
     
+	@Override
+	public String toString() {
+		return "AuthRequest [username=" + username + ", password=" + password + ", role=" + role + "]";
+	}
 	public AuthRequest() {}
 	
 	

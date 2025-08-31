@@ -35,7 +35,14 @@ public class PatientService {
 	 
 	 public void updatePatient(long patientId, Patient patientData) throws PatientError{
 		 
-		 if(validate(patientId)) patientRepository.save(patientData);
+		 if(validate(patientId)){ 
+			Patient existingPatient = patientRepository.findById(patientId).orElse(null);
+			existingPatient.setName(patientData.getName());
+			existingPatient.setAddress(patientData.getAddress());
+			existingPatient.setContactNumber(patientData.getContactNumber());
+
+			patientRepository.save(existingPatient);
+		}
 		 
 		 else throw new PatientError("Patient is unavailable");
 		 

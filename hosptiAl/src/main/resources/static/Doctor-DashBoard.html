@@ -173,32 +173,36 @@
             </div>
 
             <div class="col-md-8 mb-4 myn">
-                <div class="card shadow-sm myn">
-                    <div class="card-header">
-                        Upcoming Appointments
-                    </div>
-                    <div class="card-body" >
-                        <div class="table-responsive" >
-                            <table class="table table-striped appointments-table">
-                                <thead>
-                                    <tr>
-                                        <th>Appointment ID</th>
-                                        <th>Date</th>
-                                        <th>Time Slot</th>
-                                        <th>Status</th>
-                                        <th>Patient Id</th>
-                                        <th>Patient Name</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="appointmentsTableBody">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+    <div class="d-flex justify-content-end mb-3">
+        <div class="form-group d-flex align-items-center">
+            <label for="appointmentDateFilter" class="form-label mb-0 me-2" style="color: white; font-weight: bold;">Filter by Date:</label>
+            <input type="date" class="form-control" id="appointmentDateFilter" style="width: 200px;">
+        </div>
+    </div>
+    <div class="card shadow-sm myn">
+        <div class="card-header">
+            Upcoming Appointments
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped appointments-table">
+                    <thead>
+                        <tr>
+                            <th>Appointment ID</th>
+                            <th>Date</th>
+                            <th>Time Slot</th>
+                            <th>Status</th>
+                            <th>Patient Id</th>
+                            <th>Patient Name</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentsTableBody">
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
     <footer class="footer">
         <div class="container">
             <div class="row">
@@ -216,10 +220,10 @@
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/contact">Contact Us</a></li>
-                        <li><a href="/loginPatient">Patient</a></li>
-                        <li><a href="/bookAppointment">Book Appointments</a></li>
+                        <li><a href="Home.html">Home</a></li>
+                        <li><a >Contact Us</a></li>
+                        <li><a href="Register.html">Patient</a></li>
+                        <li><a href="BookAppointment.html">Book Appointments</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -261,118 +265,112 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
-    <script >
-        $(document).ready(function() {
-            const userRole = sessionStorage.getItem('userRole');
-            if (userRole !== 'doctor' ) {
-                alert("Access denied. You must be an  Doctor and logged in to view this page.");
-                window.location.href = 'login.html';
-                return;
-            }
-    const userName = sessionStorage.getItem('username');
-    const token = sessionStorage.getItem('jwtToken');
-
-    // Logout functionality: Clears session data and redirects to login
-    $('#logoutButton').on('click', function() {
-        sessionStorage.removeItem('username');
-        sessionStorage.removeItem('jwtToken');
-        sessionStorage.removeItem('userRole'); 
-        alert("You have been logged out successfully.");
-        window.location.href = 'Login.html'; 
-    });
-
-    if (!userName ) {
-        console.error("Doctor username or token not found in sessionStorage. Redirecting to login.");
-        alert("Please log in to view the dashboard.");
-        window.location.href = 'Login.html';
-        return;
-    }
-
-    // 1. Fetch Doctor Details
-    $.ajax({
-        url: 'http://localhost:8080/getname/' + userName,
-        type: 'GET',
-        dataType: 'json',
-        // headers: {
-        //     'Authorization': 'Bearer ' + token
-        // },
-        success: function(doctorData) {
-            $('#doctorName').text(doctorData.name || 'N/A');
-            $('#specialization').text(doctorData.specialization || 'N/A');
-            $('#contactNumber').text(doctorData.contactNumber || 'N/A');
-            $('#availabilitySchedule').text(doctorData.availabilitySchedule || 'N/A');
-        },
-        error: function(xhr, status, error) {
-            console.error("Error fetching doctor details:", error);
-            $('#doctorName').text(userName);
-            $('#specialization').text('Not Available');
-            $('#contactNumber').text('Not Available');
-            $('#availabilitySchedule').text('Not Available');
+    <script>
+    $(document).ready(function() {
+        const userRole = sessionStorage.getItem('userRole');
+        if (userRole !== 'doctor') {
+            alert("Access denied. You must be a Doctor and logged in to view this page.");
+            window.location.href = 'login.html';
+            return;
         }
-    });
 
-    // 2. Fetch Appointments and Patient Details
-    $.ajax({
-       // url: 'http://localhost:8080/appointment/appt/all',
-	   url: 'http://localhost:8080/appointment/appt/details/'+userName,
-        type: 'GET',
-        dataType: 'json',
-        // headers: {
-        //     'Authorization': 'Bearer ' + token
-        // },
-        success: function(allAppointments) {
-            const appointmentsTableBody = $('#appointmentsTableBody');
-            appointmentsTableBody.empty();
+        const userName = sessionStorage.getItem('username');
+        const token = sessionStorage.getItem('jwtToken');
 
-            if (!allAppointments || allAppointments.length === 0) {
-                appointmentsTableBody.append('<tr><td colspan="6" class="text-center text-muted">No appointments scheduled.</td></tr>');
-                return;
+        // Logout functionality: Clears session data and redirects to login
+        $('#logoutButton').on('click', function() {
+            sessionStorage.removeItem('username');
+            sessionStorage.removeItem('jwtToken');
+            sessionStorage.removeItem('userRole');
+            alert("You have been logged out successfully.");
+            window.location.href = 'Login.html';
+        });
+
+        if (!userName) {
+            console.error("Doctor username or token not found in sessionStorage. Redirecting to login.");
+            alert("Please log in to view the dashboard.");
+            window.location.href = 'Login.html';
+            return;
+        }
+
+        // 1. Fetch Doctor Details
+        $.ajax({
+            url: 'http://localhost:8080/getname/' + userName,
+            type: 'GET',
+            dataType: 'json',
+            success: function(doctorData) {
+                $('#doctorName').text(doctorData.name || 'N/A');
+                $('#specialization').text(doctorData.specialization || 'N/A');
+                $('#contactNumber').text(doctorData.contactNumber || 'N/A');
+                $('#availabilitySchedule').text(doctorData.availabilitySchedule || 'N/A');
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching doctor details:", error);
+                $('#doctorName').text(userName);
+                $('#specialization').text('Not Available');
+                $('#contactNumber').text('Not Available');
+                $('#availabilitySchedule').text('Not Available');
             }
+        });
 
-            // Filter appointments for the specific doctor
-            const doctorAppointments = allAppointments.filter(function(appointment) {
-                return appointment[7] === userName;
-            });
-            
-            if (doctorAppointments.length === 0) {
-                appointmentsTableBody.append('<tr><td colspan="6" class="text-center text-muted">No appointments scheduled for you.</td></tr>');
-                return;
-            }
+        // 2. Setup date filter and initial appointment fetch
+        const today = new Date().toISOString().split('T')[0];
+        $('#appointmentDateFilter').val(today);
+        fetchAppointmentsByDate(userName, today);
 
-            doctorAppointments.forEach(function(appointment) {
-                const appointmentId = appointment[0];
-                const appointmentDate = appointment[1];
-                const timeSlot = appointment[2];
-                const status = appointment[3];
-                const patientId = appointment[4];
-                const patientName = appointment[5];
+        $('#appointmentDateFilter').on('change', function() {
+            const selectedDate = $(this).val();
+            fetchAppointmentsByDate(userName, selectedDate);
+        });
 
-                let statusBadge;
-                if (status && status.toUpperCase() === "CONFIRMED") {
-                    statusBadge = '<span class="badge bg-success">CONFIRMED</span>';
-                } else {
-                    statusBadge = '<span class="badge bg-danger">CANCELLED</span>';
+        // ... (Your existing JavaScript code)
+
+        function fetchAppointmentsByDate(username, date) {
+            $.ajax({
+                url: `http://localhost:8080/appointment/appt/details/${username}/${date}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(appointments) {
+                    const appointmentsTableBody = $('#appointmentsTableBody');
+                    appointmentsTableBody.empty(); // Clear existing rows
+
+                    if (!appointments || appointments.length === 0) {
+                        appointmentsTableBody.append('<tr><td colspan="6" class="text-center text-muted">No appointments found.</td></tr>');
+                        return;
+                    }
+
+                    // Loop through each appointment array received from the backend
+                    appointments.forEach(function(appointment) {
+                        const appointmentId = appointment[0];
+                        const appointmentDate = appointment[1];
+                        const timeSlot = appointment[2];
+                        const status = appointment[3];
+                        const patientId = appointment[4];
+                        const patientName = appointment[5];
+                        // Note: The last three elements (doctor ID, name, specialization)
+                        // are not used in this specific table row, but you can access them if needed.
+
+                        const tableRow = `
+                            <tr>
+                                <td>${appointmentId}</td>
+                                <td>${appointmentDate}</td>
+                                <td>${timeSlot}</td>
+								<td><span class="badge ${status == 'CONFIRMED' ? 'bg-success' : 'bg-danger'}">${status}</span></td>
+
+                                <td>${patientId}</td>
+                                <td>${patientName}</td>
+                            </tr>
+                        `;
+                        appointmentsTableBody.append(tableRow);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching appointments:", error);
+                    $('#appointmentsTableBody').append('<tr><td colspan="6" class="text-center text-danger">Failed to load appointments.</td></tr>');
                 }
-
-                const tableRow = '<tr>' +
-                                '<td>' + appointmentId + '</td>' +
-                                '<td>' + appointmentDate + '</td>' +
-                                '<td>' + timeSlot + '</td>' +
-                                '<td>' + statusBadge + '</td>' +
-                                '<td>' + patientId + '</td>' +
-                                '<td>' + patientName + '</td>' +
-                                '</tr>';
-
-                appointmentsTableBody.append(tableRow);
             });
-        },
-        error: function(xhr, status, error) {
-            console.error("Error fetching appointments:", error);
-            alert("Failed to load appointment data.");
-            $('#appointmentsTableBody').append('<tr><td colspan="6" class="text-center text-danger">Error loading appointments.</td></tr>');
         }
     });
-});
-    </script>
+</script>
 </body>
 </html>

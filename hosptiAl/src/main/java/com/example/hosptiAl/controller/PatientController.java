@@ -31,7 +31,7 @@ public class PatientController {
 //		System.out.println(patientData.toString());
 //		patientService.addPatient(patientData);
 //	}
-	@GetMapping("/")
+	// @GetMapping("/")
 //	public String tt(Model mdl) {
 //		mdl.addAttribute("patient",new Patient());
 //		return "patient";

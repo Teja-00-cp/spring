@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.example.hosptiAl.Service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hosptiAl.Model.Appointment;
@@ -55,10 +57,21 @@ public class AppointmentController {
 	 public List<String> getBookedTimeSlots(@PathVariable long doctorId, @PathVariable String appointmentDate) {
         return appointmentService.getBookedTimeSlots(doctorId, appointmentDate);
     }
-	@GetMapping("/appt/details/{userName}")
-	public Iterable<Object[]> getdoctorappbyToday(@PathVariable String userName){
-		return appointmentService.getdoctorappbyToday(userName);
+	// @GetMapping("/appt/doctorname/{doctorName}/{appointmentDate}")
+	//  public List<String> getBookedTimeSlotsByName(@PathVariable String doctorName, @PathVariable String appointmentDate) {
+    //     return appointmentService.getBookedTimeSlotsByName(doctorName, appointmentDate);
+    // }
+	@GetMapping("/appt/details/{userName}/{appointmentDate}")
+	public Iterable<Object[]> getdoctorappbyToday(@PathVariable String userName,@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate appointmentDate) {
+		System.out.println(userName+" "+appointmentDate);
+		return appointmentService.getdoctorappbyToday(userName,appointmentDate);
 		
 	}
+	// @GetMapping("/appt/details/{userName}")
+	// 	public Iterable<Object[]> getdoctorappbyToday(@PathVariable String userName, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+	// 		System.out.println(userName + " " + date);
+	// 		return appointmentService.getdoctorappbyToday(userName,date);
+	// 	}
 
+	// }
 }

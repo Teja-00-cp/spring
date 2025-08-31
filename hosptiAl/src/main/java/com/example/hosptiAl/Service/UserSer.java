@@ -1,5 +1,7 @@
 package com.example.hosptiAl.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -29,13 +31,10 @@ public class UserSer {
 	int otp;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-    @Autowired
-    private JwtService jwtService;
-    @Autowired
-    private AuthenticationManager authenticationManager;
 	
 	@Autowired
 	private UserRepo userRepo;
+	Map<String,Integer> map=new HashMap<>();
 	public void addUser(User user) {
 		System.out.println(user.toString());
 		userRepo.save(user);
@@ -53,18 +52,22 @@ public class UserSer {
 		int min = 1000;
         int max = 9999;
         otp = re.nextInt(max - min + 1) + min;
+        map.put(name, otp);
         System.out.println(otp);
+//        System.out.println(map);
 	 }
 	 
 	 public String veOtp(int num,String pass, String usrNm) {
-		 
-		 if(num!=otp) {
+//		 System.out.println(map);
+//		 
+		 if(map.getOrDefault(usrNm,999999)!=num) {
 			 throw new IllegalArgumentException("Invalid Otp");
 		 }
 		 User user=userRepo.findByUsername(usrNm).orElse(null);
 		 if(user!=null) {
 			 user.setPassword(passwordEncoder.encode(pass));
 			 userRepo.save(user);
+			 map.remove(usrNm);
 		 }
 		 return "Success";
 	 }
@@ -110,6 +113,7 @@ public class UserSer {
 
 		 if (user.isPresent()) {
 		     User usr = user.get();
+		     System.out.println(authRequest.toString());
 		     
 		     // Use the matches() method to securely compare the passwords
 		     boolean passwordMatches = passwordEncoder.matches(authRequest.getPassword(), usr.getPassword());

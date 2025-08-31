@@ -22,7 +22,6 @@ import com.example.hosptiAl.Model.Patient;
 import com.example.hosptiAl.Model.User;
 import com.example.hosptiAl.Model.User.Role;
 import com.example.hosptiAl.Service.DoctorService;
-import com.example.hosptiAl.Service.JwtService;
 import com.example.hosptiAl.Service.PatientService;
 import com.example.hosptiAl.Service.UserSer;
 

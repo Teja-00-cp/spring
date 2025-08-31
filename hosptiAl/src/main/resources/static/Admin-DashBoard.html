@@ -3,41 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/css/HF.css">
-
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/HF.css">
     <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --light-bg: #f8f9fa;
+            --white-color: #ffffff;
+            --dark-color: #212529;
+        }
+
         body {
-            background-color: #f8f9fa;
+            background-color: var(--light-bg);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        .container {
-            margin-top: 50px;
+
+        .custom-header {
+            background-color: var(--primary-color) !important;
         }
-        .card-header {
+
+        .navbar-brand {
             font-weight: bold;
-            background-color: #0d6efd;
-            color: white;
         }
+
+        .nav-link {
+            color: var(--white-color) !important;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #d1e7ff !important;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        .container.main-container {
+            margin-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .dashboard-title {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            font-weight: bold;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            padding: 1rem 1.25rem;
+        }
+
         .table-custom th {
-            background-color: #0d6efd;
-            color: white;
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            border-top: none;
         }
-        .table-custom td {
-            vertical-align: middle;
+
+        .table-custom tbody tr:hover {
+            background-color: #e9ecef;
+        }
+        
+        .btn-action {
+            margin-right: 5px;
+        }
+
+        /* Footer Styles */
+        .footer-container {
+            background-color: var(--dark-color);
+            color: var(--light-bg);
+            padding: 40px 0;
+            margin-top: auto;
+        }
+
+        .footer-col {
+            margin-bottom: 20px;
+        }
+
+        .footer-col h4 {
+            font-size: 18px;
+            color: var(--white-color);
+            text-transform: capitalize;
+            margin-bottom: 35px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .footer-col h4::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            background-color: var(--primary-color);
+            height: 2px;
+            box-sizing: border-box;
+            width: 50px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li:not(:last-child) {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li p,
+        .footer-col ul li a {
+            font-size: 16px;
+            text-transform: capitalize;
+            color: #bbbbbb;
+            text-decoration: none;
+            font-weight: 300;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--white-color);
+            padding-left: 8px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            height: 40px;
+            width: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 0 10px 10px 0;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            color: var(--white-color);
+            transition: all 0.5s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--dark-color);
+            background-color: var(--white-color);
         }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark custom-header">
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand" href="Home.html">Healing Haven Hospital</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="Home.html">Home</a>
                     </li>
@@ -56,14 +186,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="Doctor-Register.html"> Doctor</a>
                     </li>
-                    
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container">
-        <h2 class="mb-5 text-center text-primary">Admin Dashboard</h2>
-
+  
+    <div class="container main-container">
+        <h2 class="mb-5 text-center dashboard-title">Admin Dashboard</h2>
         <div class="card shadow-sm mb-5">
             <div class="card-header">
                 All Doctors
@@ -77,15 +206,16 @@
                                 <th>Name</th>
                                 <th>Specialization</th>
                                 <th>Contact Number</th>
+                                <th>availabilitySchedule</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="doctorsTableBody">
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
         <div class="card shadow-sm">
             <div class="card-header">
                 All Patients
@@ -99,11 +229,118 @@
                                 <th>Name</th>
                                 <th>Contact Number</th>
                                 <th>Address</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="patientsTableBody">
-                            </tbody>
+                        </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-container">
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col col-md-3">
+                        <h4>Contact Us</h4>
+                        <ul>
+                            <li><p>Email: hhh@gmail.com</p></li>
+                            <li><p>+91-9547856321</p></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col col-md-3">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="Home.html">Home</a></li>
+                            <li><a href="Register.html">Patient</a></li>
+                            <li><a href="BookAppointment.html">Book Appointments</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col col-md-3">
+                        <h4>Departments</h4>
+                        <ul>
+                            <li><p>General</p></li>
+                            <li><p>ICU</p></li>
+                            <li><p>Emergency</p></li>
+                            <li><p>Cardiology</p></li>
+                            <li><p>Neurology</p></li>
+                            <li><p>Gynecology</p></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col col-md-3">
+                        <h4>Follow us</h4>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <div class="modal fade" id="editDoctorModal" tabindex="-1" aria-labelledby="editDoctorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editDoctorModalLabel">Edit Doctor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editDoctorForm">
+                        <input type="hidden" id="editDoctorId">
+                        <div class="mb-3">
+                            <label for="editDoctorName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="editDoctorName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDoctorSpecialization" class="form-label">Specialization</label>
+                            <input type="text" class="form-control" id="editDoctorSpecialization">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDoctorContact" class="form-label">Contact Number</label>
+                            <input type="text" class="form-control" id="editDoctorContact">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDoctorContact" class="form-label">availabilitySchedule</label>
+                            <input type="text" class="form-control" id="editDoctorAvailability">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="editPatientModal" tabindex="-1" aria-labelledby="editPatientModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPatientModalLabel">Edit Patient</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPatientForm">
+                        <input type="hidden" id="editPatientId">
+                        <div class="mb-3">
+                            <label for="editPatientName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="editPatientName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPatientContact" class="form-label">Contact Number</label>
+                            <input type="text" class="form-control" id="editPatientContact">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPatientAddress" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="editPatientAddress">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -111,155 +348,238 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <script>
-        $(document).ready(function() {
-            const authToken = sessionStorage.getItem('jwtToken'); // Retrieve the JWT token
-            console.log("Token: ", authToken);
-            // Check for both admin role and a valid token
-            const userRole = sessionStorage.getItem('userRole');
-            if (userRole !== 'admin') {
-                alert("Access denied. You must be an administrator and logged in to view this page.");
-                window.location.href = 'login.html';
-                return;
+       $(document).ready(function() {
+    const userRole = sessionStorage.getItem('userRole');
+
+    if (userRole !== 'admin') {
+        alert("Access denied. You must be an administrator and logged in to view this page.");
+        window.location.href = 'Login.html';
+        return;
+    }
+     $('#doctorRegistrationForm').on('submit', function(event) {
+        event.preventDefault();
+
+        const doctorData = {
+            username: $('#username').val(),
+            password: $('#password').val(),
+            name: $('#name').val(),
+            specialization: $('#specialization').val(),
+            contactNumber: $('#contactNumber').val(),
+            availabilitySchedule: $('#availabilitySchedule').val()
+        };
+
+        $.ajax({
+            url: 'http://localhost:8080/admin/register_doctor',
+            type: 'POST',
+            contentType: 'application/json',
+         
+            data: JSON.stringify(doctorData),
+            success: function(response) {
+                alert('Doctor registered successfully!');
+                $('#doctorRegistrationForm')[0].reset();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error registering doctor:", error);
+                alert('Failed to register doctor. Check your permissions.');
             }
-
-            const doctorsApiUrl = `http://localhost:8080/getCompletedoctor`;
-            const patientsApiUrl = `http://localhost:8080/pat/getallpatients`;
-
-            // Function to fetch and display doctors
-            function loadDoctors() {
-                $.ajax({
-                    url: doctorsApiUrl,
-                    type: 'GET',
-                    dataType: 'json',
-                    // beforeSend: function(xhr) {
-                    //     // Include the JWT token in the Authorization header
-                    //     xhr.setRequestHeader("Authorization", "Bearer " + authToken);
-                    // },
-                    success: function(doctors) {
-                        const doctorsTableBody = $('#doctorsTableBody');
-                        doctorsTableBody.empty();
-                        if (doctors && doctors.length > 0) {
-                            doctors.forEach(doctor => {
-                                const row = `
-                                    <tr>
-                                        <td>${doctor.doctorId}</td>
-                                        <td>${doctor.name}</td>
-                                        <td>${doctor.specialization}</td>
-                                        <td>${doctor.contactNumber}</td>
-                                    </tr>
-                                `;
-                                doctorsTableBody.append(row);
-                            });
-                        } else {
-                            doctorsTableBody.append('<tr><td colspan="4" class="text-center text-muted">No doctors found.</td></tr>');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error fetching doctors:", error);
-                        $('#doctorsTableBody').append('<tr><td colspan="4" class="text-center text-danger">Failed to load doctor data.</td></tr>');
-                    }
-                });
-            }
-
-            // Function to fetch and display patients
-            function loadPatients() {
-                $.ajax({
-                    url: patientsApiUrl,
-                    type: 'GET',
-                    dataType: 'json',
-                    // beforeSend: function(xhr) {
-                    //     // Include the JWT token in the Authorization header
-                    //     xhr.setRequestHeader("Authorization", "Bearer " + authToken);
-                    // },
-                    success: function(patients) {
-                        const patientsTableBody = $('#patientsTableBody');
-                        patientsTableBody.empty();
-                        if (patients && patients.length > 0) {
-                            patients.forEach(patient => {
-                                const row = `
-                                    <tr>
-                                        <td>${patient.patientId}</td>
-                                        <td>${patient.name}</td>
-                                        <td>${patient.contactNumber}</td>
-                                        <td>${patient.address}</td>
-                                    </tr>
-                                `;
-                                patientsTableBody.append(row);
-                            });
-                        } else {
-                            patientsTableBody.append('<tr><td colspan="4" class="text-center text-muted">No patients found.</td></tr>');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error fetching patients:", error);
-                        $('#patientsTableBody').append('<tr><td colspan="4" class="text-center text-danger">Failed to load patient data.</td></tr>');
-                    }
-                });
-            }
-
-            // Load data when the page is ready
-            loadDoctors();
-            loadPatients();
         });
+    });
+    const doctorsApiUrl = `http://localhost:8080/getCompletedoctor`;
+    const patientsApiUrl = `http://localhost:8080/pat/getallpatients`;
+    const getDoctorByIdUrl = `http://localhost:8080/get/`;
+    const getPatientByIdUrl = `http://localhost:8080/pat/getPatient/`;
+    const updateDoctorApiUrl = `http://localhost:8080/updateDoc/`;
+    const updatePatientApiUrl = `http://localhost:8080/pat/update/`;
+
+    // Function to fetch and display doctors
+    function loadDoctors() {
+        $.ajax({
+            url: doctorsApiUrl,
+            type: 'GET',
+            dataType: 'json',
+            success: function(doctors) {
+                const doctorsTableBody = $('#doctorsTableBody');
+                doctorsTableBody.empty();
+                if (doctors && doctors.length > 0) {
+                    doctors.forEach(doctor => {
+                        const row = `
+                            <tr>
+                                <td>${doctor.doctorId}</td>
+                                <td>${doctor.name}</td>
+                                <td>${doctor.specialization}</td>
+                                <td>${doctor.contactNumber}</td>
+                                <td>${doctor.availabilitySchedule}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm btn-action edit-doctor" data-id="${doctor.doctorId}">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        doctorsTableBody.append(row);
+                    });
+                } else {
+                    doctorsTableBody.append('<tr><td colspan="6" class="text-center text-muted">No doctors found.</td></tr>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching doctors:", error);
+                $('#doctorsTableBody').append('<tr><td colspan="6" class="text-center text-danger">Failed to load doctor data.</td></tr>');
+            }
+        });
+    }
+
+    // Function to fetch and display patients
+    function loadPatients() {
+        $.ajax({
+            url: patientsApiUrl,
+            type: 'GET',
+            dataType: 'json',
+            success: function(patients) {
+                const patientsTableBody = $('#patientsTableBody');
+                patientsTableBody.empty();
+                if (patients && patients.length > 0) {
+                    patients.forEach(patient => {
+                        const row = `
+                            <tr>
+                                <td>${patient.patientId}</td>
+                                <td>${patient.name}</td>
+                                <td>${patient.contactNumber}</td>
+                                <td>${patient.address}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm btn-action edit-patient" data-id="${patient.patientId}">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                        patientsTableBody.append(row);
+                    });
+                } else {
+                    patientsTableBody.append('<tr><td colspan="5" class="text-center text-muted">No patients found.</td></tr>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching patients:", error);
+                $('#patientsTableBody').append('<tr><td colspan="5" class="text-center text-danger">Failed to load patient data.</td></tr>');
+            }
+        });
+    }
+
+    // EDIT Functionality for dynamically created doctor buttons
+    $(document).on('click', '.edit-doctor', function() {
+        const doctorId = $(this).data('id');
+
+        $.ajax({
+            url: `${getDoctorByIdUrl}${doctorId}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function(doctor) {
+                // Populate the modal fields with doctor's data
+                $('#editDoctorId').val(doctor.doctorId);
+                $('#editDoctorName').val(doctor.name);
+                $('#editDoctorSpecialization').val(doctor.specialization);
+                $('#editDoctorContact').val(doctor.contactNumber);
+                $('#editDoctorAvailability').val(doctor.availabilitySchedule);
+
+                const myModal = new bootstrap.Modal(document.getElementById('editDoctorModal'));
+                myModal.show();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching doctor details:", error);
+                alert("Failed to load doctor details for editing.");
+            }
+        });
+    });
+
+    // EDIT Functionality for dynamically created patient buttons
+    $(document).on('click', '.edit-patient', function() {
+        const patientId = $(this).data('id');
+
+        $.ajax({
+            url: `${getPatientByIdUrl}${patientId}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function(patient) {
+                // Populate the modal fields with patient's data
+                $('#editPatientId').val(patient.patientId);
+                $('#editPatientName').val(patient.name);
+                $('#editPatientContact').val(patient.contactNumber);
+                $('#editPatientAddress').val(patient.address);
+
+                const myModal = new bootstrap.Modal(document.getElementById('editPatientModal'));
+                myModal.show();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching patient details:", error);
+                alert("Failed to load patient details for editing.");
+            }
+        });
+    });
+
+    // Handle form submission for updating a doctor
+    $('#editDoctorForm').on('submit', function(e) {
+        e.preventDefault();
+        const doctorId = $('#editDoctorId').val();
+        const updatedDoctor = {
+            name: $('#editDoctorName').val(),
+            specialization: $('#editDoctorSpecialization').val(),
+            contactNumber: $('#editDoctorContact').val(),
+            availabilitySchedule: $('#editDoctorAvailability').val()
+        };
+
+        $.ajax({
+            url: `${updateDoctorApiUrl}${doctorId}`,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(updatedDoctor),
+            success: function() {
+                alert("Doctor updated successfully!");
+                const myModal = bootstrap.Modal.getInstance(document.getElementById('editDoctorModal'));
+                myModal.hide();
+                loadDoctors();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error updating doctor:", error);
+                alert("Failed to update doctor. Please try again.");
+            }
+        });
+    });
+
+    // Handle form submission for updating a patient
+    $('#editPatientForm').on('submit', function(e) {
+        e.preventDefault();
+        const patientId = $('#editPatientId').val();
+        const updatedPatient = {
+            name: $('#editPatientName').val(),
+            contactNumber: $('#editPatientContact').val(),
+            address: $('#editPatientAddress').val()
+        };
+
+        $.ajax({
+            url: `${updatePatientApiUrl}${patientId}`,
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(updatedPatient),
+            success: function() {
+                alert("Patient updated successfully!");
+                const myModal = bootstrap.Modal.getInstance(document.getElementById('editPatientModal'));
+                myModal.hide();
+                loadPatients();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error updating patient:", error);
+                alert("Failed to update patient. Please try again.");
+            }
+        });
+    });
+
+    // Initial data load
+    loadDoctors();
+    loadPatients();
+});
     </script>
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col">
-                    <h4>Contact Us</h4>
-                    <ul>
-                        <li>
-                            <p>Email:hhh@gmail.com</p>
-                        </li>
-                        <li>
-                            <p>+91-9547856321</p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="Home.html">Home</a></li>
-                        <li><a href="Register.html">Patient</a></li>
-                        <li><a href="BookAppointment.html">Book Appointments</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Departments</h4>
-                    <ul>
-                        <li>
-                            <p>Gerenal</p>
-                        </li>
-                        <li>
-                            <p>ICU</p>
-                        </li>
-                        <li>
-                            <p>Emergency</p>
-                        </li>
-                        <li>
-                            <p>Cardiology</p>
-                        </li>
-                        <li>
-                            <p>Neurology</p>
-                        </li>
-                        <li>
-                            <p>Gynecology</p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>follow us</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 </html>

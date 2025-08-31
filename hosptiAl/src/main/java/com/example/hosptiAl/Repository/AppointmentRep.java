@@ -23,16 +23,16 @@ public interface AppointmentRep extends JpaRepository<Appointment, Long>{
 	            LEFT JOIN doctor d ON a.doctor_id = d.doctor_id
 	            """, nativeQuery = true)
 	    List<Object[]> findAppointmentsWithPatientAndDoctorDetails();
-	    @Query(value = """
-	            SELECT a.appointment_id, a.appointment_date, a.time_slot, a.status, 
-	                   p.patient_id, p.name AS patient_name,
-	                   d.doctor_id, d.name AS doctor_name, d.specialization
-	            FROM appointment a
-	            LEFT JOIN patient p ON a.patient_id = p.patient_id
-	            LEFT JOIN doctor d ON a.doctor_id = d.doctor_id
-	            WHERE a.appointment_date = CURDATE() AND d.doctor_id = :doctorId
-	            """, nativeQuery = true)
-	        List<Object[]> findTodayAppointmentsWithDetailsByDoctorId(@Param("doctorId") Long doctorId);
+	  @Query(value = """
+    SELECT a.appointment_id, a.appointment_date, a.time_slot, a.status, 
+           p.patient_id, p.name AS patient_name,
+           d.doctor_id, d.name AS doctor_name, d.specialization
+    FROM appointment a
+    LEFT JOIN patient p ON a.patient_id = p.patient_id
+    LEFT JOIN doctor d ON a.doctor_id = d.doctor_id
+    WHERE a.appointment_date = :appointmentDate AND d.doctor_id = :doctorId
+    """, nativeQuery = true)
+List<Object[]> findAppointmentsWithDetailsByDoctorAndDate(@Param("doctorId") Long doctorId, @Param("appointmentDate") LocalDate appointmentDate);
 	    
 	    
 	    @Query(value = "SELECT a.time_slot FROM appointment a WHERE a.doctor_id = :doctorId", nativeQuery = true)
